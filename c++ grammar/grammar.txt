@@ -1,0 +1,45 @@
+1.for循环中i++与++i等价
+  赋值时不等价a=i++即为a=i;i++;//先赋值后加
+  	     a=++i为i++,a=i;//先加后赋值
+
+2.int *a与int* a等价
+  int &a=b 引用在被定义时必须被初始化
+  int *p=&a 取地址符 指针p指向a的地址
+  指针可以指向指针，不可以定义引用的引用 因为指针本身是一个变量，而引用不是对象
+  引用和指针都必须 引用/指向 相同类型的对象。
+
+3.空指针：
+  int *a=0;
+  int *a=NULL;
+  int *a=nullptr;//推荐使用
+4.预处理器：防止头文件被多次包含。头文件保护符
+  #ifndef SALES_DATA_H
+  #define SALES_DATA_H
+  ...
+  #endif
+5.int a;
+  while(cin>>a)
+    cout<<a<<endl;
+6.string line("ccc");
+  string line(3,'c');
+  string line="ccc";
+  auto len=line.size();//len是string::size_type类型
+  cout<<decltype(len);
+7.范围for语句 p82
+  string str("some string");
+  for(auto c:str)
+    cout<<c<<endl;//不会改变str中字符的值
+
+  for(auto &c:str)
+    c=toupper(c);//c是引用，会改变str中字符的值
+8.迭代器 p95
+	用于容器和string类型
+	vector<pair<int,double>> a{2,4,7};
+	auto iter=a.begin();//迭代器智能类型
+	++iter;
+	--iter;
+	则*iter引用a[0]
+  iter->first与(*it).first等价//iter->second
+
+	vector<int>::iterator it;//迭代器类型
+  string::iterator it2;
