@@ -12,6 +12,11 @@
   int *a=0;
   int *a=NULL;
   int *a=nullptr;//推荐使用
+	int a[10];
+	int *p[10];//p是包含十个整形指针的数组
+  //指向函数或者数组的指针只需要将函数名或者数组名变成指针并且加上小括号即可。
+	int (*p)[10]//a pointer that point to a array with 10 members
+  int (*add) (int a,int b)// a pointer that point to a function, using add(2,3) or (*add)(2,3) when been called
 4.预处理器：防止头文件被多次包含。头文件保护符
   #ifndef SALES_DATA_H
   #define SALES_DATA_H
@@ -24,7 +29,7 @@
   string line(3,'c');
   string line="ccc";
   auto len=line.size();//len是string::size_type类型
-  cout<<decltype(len);
+  decltype(len);
 7.范围for语句 p82
   string str("some string");
   for(auto c:str)
@@ -43,3 +48,86 @@
 
 	vector<int>::iterator it;//迭代器类型
   string::iterator it2;
+9.数组的头指针和尾后指针：
+	int a[]={3,4,5};
+	int *beg=begin(a);
+	int *end=end(a);
+	//using a array to initialze a vector:
+	vector<int> b(beg,end);
+	//尽量使用标准库string：
+	std::string a="abc";
+  //少用C风格字符串:
+	const char a[]="abc";
+	//现代C++多使用vector和迭代器，少用内置数组和指针
+10.
+  int cnt=0;
+	ia[3][4]={};
+	//使用范围for循环遍历多维数组：
+  for(auto &row:ia)
+		for(auto &col:row)
+		{
+			col=cnt;
+			cnt++;
+		}
+	//使用for循环与begin end遍历多维数组：
+	for(auto p=begin(ia);p!=end(ia);p++)
+		for(auto q=begin(*p);q!=end(*p);q++)
+		{
+			cout<<*q<<endl;
+		}
+11.//p132 输出直到负值
+	auto p=v.begin();
+	for(p!=v.end()&&*p>=0)//*p++等价于*(p++)
+		cout<<*p++<<endl;
+		//*p++等价于*(p++),先将指针p加一，返回加一之前的*p
+12.
+	switch (ch){
+		case 'a':
+			++acnt;
+			break;
+		case 'b':
+			++bcnt;
+			break;
+		default:
+			++elsecnt;
+			break;
+}
+13.exception handler//p173
+	while(cin>>item1>>item2)
+	{
+    try
+		{
+			if(item1.isbn()!=item2.isbn())
+				throw runtime_error("Data must refer to same ISBN");
+			cout<<item1+item2<<endl;
+		}
+		catch(runtime_error e)
+		{
+			cout<<e.what()<<"\nTry again? Enter y or n"<<endl;
+			char c;cin>>c;
+			if(!cin||c=='n')
+				break;
+		}
+	}
+14.局部静态对象//p185
+	将函数内的局部变量定义成static,则局部变量在函数执行结束后仍有效。
+	int add(int a, int b)
+	{
+		int d;//d仅在函数内有效
+		static int c;//c全局有效
+	}
+15.三种函数传参方式：值传递，地址传递，引用传递
+	int add(const int &a,const int &b)//常量引用
+	//函数内部无需改变引用形参值时，最好申明为常量引用p189&&p57 否则容易引发一些错误p192
+	数组形参传递三种方式：p194
+	初始化列表列表值：
+	vector<int> process()
+	{
+		return{1,2,3};
+	}
+16.递归函数
+	int factorial(int val)
+	{
+		if(val>1) return val*factorial(val-1);
+		return 1;
+	}
