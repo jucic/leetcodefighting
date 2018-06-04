@@ -1,15 +1,16 @@
 #include <iostream>
+#include <vector>
+//#include <random>
+#include <algorithm>
+
 using namespace std;
 
-	int factorial(int val)
-	{
-		if(val>1) return val*factorial(val-1);
-		return 1;
-	}
 int main()
 {
-
-	cout<<factorial(5)<<endl;
+	static uniform_int_distribution<size_t> u(0,9);
+	static std::default_random_engine e(time(0));
+	for(size_t i=0;i<10;i++)
+	std::cout<<u(e)<<std::endl;
 }
 
 

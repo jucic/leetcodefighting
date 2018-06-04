@@ -95,10 +95,10 @@
 13.exception handler//p173
 	while(cin>>item1>>item2)
 	{
-    try
+    	try
 		{
 			if(item1.isbn()!=item2.isbn())
-				throw runtime_error("Data must refer to same ISBN");
+				throw runtime_error(isbn_mismatch)("Data must refer to same ISBN");//user defined exception type.
 			cout<<item1+item2<<endl;
 		}
 		catch(runtime_error e)
@@ -131,3 +131,200 @@
 		if(val>1) return val*factorial(val-1);
 		return 1;
 	}
+17.类的常量成员函数p231-p232
+	string isbn() const{return bookno;}//类的常量对象不能调用非常量成员函数，且常量成员函数不能改变普通成员的值,but can change the value of a mutable data number(relative to mutable data number)const object of a class cannot call a non-const member function and the const member function cannot change the value of the member in a class.e.g. read only
+18.//a function that returns a object "this":p233
+	Sales_data & combine(const Sales_data &rhs)
+	{
+		revenue+=rhs.revenue;
+		return *this;
+	}
+	//something like a function that returns a reference p202
+	char &get_val(string &str,string::size_type index)
+	{
+		return str[index];
+	}
+	string s("a value");
+	get_val(s,0)='A';
+
+19.//constructor:
+	Sales_data()=default;
+	Sales_data(const std::string &s,unsigned n,double p):isbn(s),units_sold(n),revenue(p*n){}
+
+20.typedef std::string::size_type pos;
+	//equal to 
+	using pos=std::string::size_type;
+	std::vector<Screen> screen{Screen(24,80,'')};//a vector of type Screen named screen initialized with a member Screen(24,80,'')
+
+21.//to provide class A with the access to the private member of class B,you can make class A to be the friend of class B or simply make a member function of class A to be the friend of class B.
+
+22.//all the objects of a class share one static member or one static member function p269
+	class Account
+	{
+	public:
+		static void rate(double newRate);//mind the key word "static"
+	private:
+		static double interestRate;
+		static double initRate();
+		static const int a=1;//整型常量静态值才可以在类内初始化
+	};
+	//needn't to remention the key word "static" when define a static member function out of a class
+	void Account::rate(double newRate)//a static member function
+	{interestRate=newRate;}
+	double Account::interestRate=initRate();//usually the static member of a class should be initialized out of the class
+23.//iostream(istream/ostream),fstream(ifstream,ofstream),sstream
+	ofstream out(filename,std::fstream::app)//append/trunction/in(read only)/out(write only)/mode 
+	sstream strm(s);
+	strm.str();//return the string saved by strm.
+	strm.str(s);//copy the string "s" to strm and return "void".
+24.//container
+	vector<int> ivec(10,1);
+	list<string> slist(10,"comeon");
+	forward_list<int> ivec(10);//members initialized to be 0
+	deque<string> svec(10);//双端队列members initialized to be ""
+	array<int,10> ia={1};//{1,0,....,0}
+	array<int,10>::size_type i;
+
+	list<string> slist(1);//slist contains one member e.g. empty string
+	slist.assign(10,"Hiya");//slist contains ten members with the same value "Hiya"
+
+	auto val=*c.begin(),val2=c.front();//first member of a container
+	auto last=c.end;
+	auto val3=c.back;
+	auto val4=*(--last);//last member of a container
+	std::vector<int> ivec(10,1);ivec.at(1)=3;ivec[1]=4;//return the reference of the corresponding member
+	ivec.pop_back();ivec.clear();ivec.erase(p);//where p is a iterator
+	ivec.resize(5);
+
+25.//generic algorithm
+	本阶段所学到的一些泛型算法：find()搜索，accmulate()求和，equal()相等判断，fill()、fill_n()赋值，back_insert()插入操作，copy()拷贝，sort()排序，unique()重排并消重复
+	谓词(predicate):
+	bool isshorter(const string &s1,const string &s2)//二元谓词，binary predicate/unary predicate
+	{return s1.size()<s2.size();}
+	sort(word.begin(),word.end(),isshorter);//sort the member of word(vector<string>) according to their size.
+
+	//lambda expression:p346
+	//auto f=[capture list] (parameter list)->return type{function body};
+26.//associative-container:map/set
+	//(unordered_)map/set/multimap/multiset
+
+	map<string,size_t> word_cnt;
+	set<string> exclude={"a","an","the"};
+	string word;
+	while(cin>>word)
+	{
+		if(exclude.find(word)==exclude.end())
+			word_cnt[word]++;
+	}
+	
+	map<string,string> authors={{"anna","james"},{"jobs","geo"}};
+
+	//insert member to set
+	vector<string> svec={"d","bbb","bbb","ccc"};
+	exclude.insert(svec.cbegin(),svec.cend());
+	exclude.insert("dd","cc");
+
+	//insert member to map
+	word_cnt.insert({"hello",3});
+	word_cnt.insert(make_pair("hello",3));
+	word_cnt.insert(pair<string,size_t>("hello",3));
+	word_cnt.insert(pair<string,size_t>::value_type("hello",3));
+
+27.//
+	auto p=make_shared<int>(42);
+	shared_ptr<int> p=make_shared<int>(42);//p is a shared_ptr that points to a int with the value of 42.
+	
+	string *ps=new string("abc");
+	auto p1=new auto(obj);//
+
+	shared_ptr<int> p(new int(100));
+	shared_ptr<int> p=new int(100);//false:must be initialized directly.
+
+Chapter 13
+28.//拷贝控制操作：(copy control)
+	拷贝构造函数(copy constructor)//p440 constructor has no return type!!!
+	Sales_data::Sales_data(const Sales_data &origin):bookno(origin.bookno),units_sold(origin.units_sold){}
+
+	拷贝赋值运算符(copy-assignment operator)
+	Sales_data& Sales_data::operator=(const Sales_data &rhs)
+	{
+		bookno=rhs.bookno;
+		units_sold=rhs.units_sold;
+		return *this;
+	}
+	移动构造函数(move constructor)//p473
+	Sales_data::Sales_data(Sales_data &&origin) noexcept :bookno(origin.bookno),units_sold(origin.units_sold)
+	{
+		origin.elements=origin.first_free=origin.cap=nullptr;//使得origin处于可析构状态
+	}
+	移动赋值运算符(move-assignment operator)
+	Sales_data& Sales_data::operator=(Sales_data &&rhs) noexcept
+	{
+		if(this!=&rhs)
+		{
+			free();
+			elements=rhs.elements;
+			first_free=rhs.first_free;
+			cap=rhs.cap;
+			rhs.elements=rhs.first_free=rhs.cap=nullptr;
+		}
+		return *this;
+	}
+	Sales_data x1,x2=std::move(x1);
+	析构函数(destructor)
+	~Sales_data();
+	左值引用(&i),右值引用(&&i),左值持久，右值短暂：函数返回值、变量属于左值，字面值、表达式属于右值
+
+29.//重载运算与类型转换
+	when called,(data1+data2) equals to operator+(data1,data2);
+	成员运算符函数：data1+=data2,data1.operator+=(data2);
+
+30.object-oriented programming:
+	数据抽象：接口与实现分离
+	继承：定义相似的类型并对相似关系建模
+	动态绑定：在一定程度上忽略相似类型的区别，以统一的方式使用。
+	基类(base class)—>继承(inheritance)—>派生类(derived class)
+	虚函数：对于某些函数，基类希望它的派生类各自定义适合其自身的版本，基类会将该函数声明为虚函数！！！而派生类必须在其内部对所有重新定义的虚函数进行声明，若不加virtual关键字，可以在其后加上override显式声明改写基类的虚函数
+	类派生列表：派生类必须通过使用类派生列表明确指出它是从哪个基类中继承而来的：冒号+（访问限定符）基类列表 class cat:public animals{};派生列表中的访问说明符的作用是控制派生类从基类中继承的成员是否对派生类的用户可见。
+	动态绑定:函数的运行版本由实参决定也被称为运行时绑定：在使用基类的引用调用一个虚函数时将会发生动态绑定！！！当我们使用指针或者引用调用虚函数时，将调用动态绑定
+	虚析构函数:基类通常应该定义一个虚析构函数，即使该函数不执行任何操作也是如此！virtual ~Quote()=dafault;
+	virtual:关键词virtual只能出现在类内的声明函数语句之前，而不能用于类外部的函数定义，在派生类中相应的函数将隐式的是虚函数（不加virtual的情况）
+	protected:基类中受保护的成员，基类希望它的派生类有权访问该成员，同时禁止其他用户访问，而base class' private member即使是其派生类也不能访问
+	派生类构造函数：
+	calss Fish:public Animals
+	{
+	public:
+		Fish(size_t age,size_t weight,bool swimming):Animals(age,weight),swim(swimming){}
+	};
+	继承与静态成员：静态成员遵循通用的访问规则，即如果基类中的static member是私有的，则派生类无权访问，若是公有则可以。
+	静态类型和动态类型：当我们使用一个变量或者表达式时，我们需要将其静态类型和动态类型相互区分开，表达式的静态类型是在编译时已知的，是变量声明时的类型或者表达式生成的类型，其动态类型是变量或者表达式表示内存的对象的类型，知道运行时才可知，即如item对象，静态类型为Quote&，动态类型则依赖于item所绑定的实参（可能是bulk_quote)，直到函数运行时才可知。如果表达式既不是指针也不是引用，则其动态类型和静态类型会一直一致。
+	多态性：引用和指针的静态类型与动态类型不同的这一事实是C++语言支持多态性的根本所在(必须是虚函数)，当我们使用引用或者指针调用一个虚成员函数时才会执行动态绑定（普通对象调用或者是普通函数则没有多态性），因为我们知道在程序运行时才知道到底调用了哪个版本的虚函数，所以所有虚函数都必须有定义
+	虚函数覆盖：一个派生类的函数成员如果覆盖了基类的继承而来的虚函数，则它的形参类型必须与被它覆盖的基类函数完全一致，返回类型也必须相匹配，但当类的虚函数的返回类型是类本身的指针或者引用时，返回类型可以不同。派生类如果定义了一个与基类虚函数同名函数，但参数列表不相同的话，仍然是合法行为，编译器会认为该函数与基类虚函数是相互独立的，但这往往是把形参列表弄错了的错误，编译器发现不了，所以C++11有一个好东西，在其后加上override表示其要对基类的函数进行覆盖，若未覆盖，编译器报错，我们可以发现自己的错误。using key word final to prevent from inheritance
+	虚函数默认实参：虚函数可以有默认实参，若函数调用了默认实参，则实参值由静态类型决定，所以基类和派生类中定义的默认实参最好一致
+	way to prevent from virtual function:某些情况下，我们不希望进行动态绑定，我们可使用作用域运算符强行指定其执行哪个版本，进行回避虚函数—一般情况下是成员函数中的代码才需要以防止自己调用自身造成无限循环
+	纯虚函数：virtual bool Consume() = 0;//虚成员函数=0;表示本类不对这个成员函数进行实现，即该成员函数没有函数体{ }，这种函数就叫纯虚函数。一个类中只要有一个成员函数是纯虚函数，就成了不能实例化的虚类，相当于接口，只能给派生类继承，让派生类来进行函数覆盖重写这个虚方法。
+	派生类的成员只能通过派生类对象来访问基类的受保护成员!!!也就是说派生类不能访问基类对象的受保护成员
+	继承方式与访问权限：（派生访问说明符对于派生类的成员及友元能否访问其直接基类的成员没有影响，派生访问说明符控制的是派生类用户，包括派生类的派生类在内，对基类成员的访问权限）公有继承，继承自基类的成员在派生类中遵循原有的访问说明符（派生类可访问基类的public和protected,但是不能访问private)，私有继承，继承而来的基类成员在派生类中变为private，变为私有，派生类的对象都不可以访问其本身的私有成员，但私有继承不影响派生类本身的访问权限，它同样不可以使用基类的私有成员。
+	派生类向基类转换的可访问性：
+	1： 假定B继承自A，无论B以什么方式继承A，B的成员函数和友元都能使用派生类到基类的转换
+	2： B继承A的方式是公有或者保护，则B的派生类的成员或友元可以使用B到A的转换，若未私有则不行
+	3： B继承A的方式是公有的，用户的代码才能使用B到A的（派生类到基类）的转换，保护或者私有方式则不行
+
+	友元与继承：友元关系不能继承，每个类负责自己控制自己成员的访问权限，也不能传递。
+
+	struct默认公有继承，class默认私有继承，但是我们最好将其显式的表明//p546
+
+31.function template:
+	template<typename T> inline//mind the place of the key word "inline"
+	int compare(const T &a,const T &b)
+	{
+		if(a<b) return -1;
+		else if(a>b) return 1;
+		else return 0;
+	}
+
+32.random number:
+	static std::uniform_int_distribution<unsigned> u(0,9);//unsigned distribution between 0 and 9, define it as a static variable so that it generates different random number every time been called.
+	static std::uniform_real_distribution<double> u1(0,1);//double distribution between 0 and 1
+	static std::default_random_engine e(time(0));//engine, random set as a seed.
+	cout<<u(e)<<endl;
