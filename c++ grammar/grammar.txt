@@ -134,7 +134,7 @@
 17.类的常量成员函数p231-p232
 	string isbn() const{return bookno;}//类的常量对象不能调用非常量成员函数，且常量成员函数不能改变普通成员的值,but can change the value of a mutable data number(relative to mutable data number)const object of a class cannot call a non-const member function and the const member function cannot change the value of the member in a class.e.g. read only
 18.//a function that returns a object "this":p233
-	Sales_data & combine(const Sales_data &rhs)
+	Sales_data& combine(const Sales_data &rhs)
 	{
 		revenue+=rhs.revenue;
 		return *this;
@@ -174,7 +174,7 @@
 	double Account::interestRate=initRate();//usually the static member of a class should be initialized out of the class
 23.//iostream(istream/ostream),fstream(ifstream,ofstream),sstream
 	ofstream out(filename,std::fstream::app)//append/trunction/in(read only)/out(write only)/mode 
-	sstream strm(s);
+	sstream strm(s);//p288
 	strm.str();//return the string saved by strm.
 	strm.str(s);//copy the string "s" to strm and return "void".
 24.//container
@@ -196,8 +196,8 @@
 	ivec.pop_back();ivec.clear();ivec.erase(p);//where p is a iterator
 	ivec.resize(5);
 
-25.//generic algorithm
-	本阶段所学到的一些泛型算法：find()搜索，accmulate()求和，equal()相等判断，fill()、fill_n()赋值，back_insert()插入操作，copy()拷贝，sort()排序，unique()重排并消重复
+25.//generic algorithm//p336
+	本阶段所学到的一些泛型算法：find()搜索，accmulate()求和，equal()相等判断，fill()、fill_n()赋值，back_inserter()插入操作，copy()拷贝，sort()排序，unique()重排并消重复
 	谓词(predicate):
 	bool isshorter(const string &s1,const string &s2)//二元谓词，binary predicate/unary predicate
 	{return s1.size()<s2.size();}
@@ -205,7 +205,7 @@
 
 	//lambda expression:p346
 	//auto f=[capture list] (parameter list)->return type{function body};
-26.//associative-container:map/set
+26.//associative-container:map/set p374
 	//(unordered_)map/set/multimap/multiset
 
 	map<string,size_t> word_cnt;
@@ -307,7 +307,7 @@ Chapter 13
 	继承方式与访问权限：（派生访问说明符对于派生类的成员及友元能否访问其直接基类的成员没有影响，派生访问说明符控制的是派生类用户，包括派生类的派生类在内，对基类成员的访问权限）公有继承，继承自基类的成员在派生类中遵循原有的访问说明符（派生类可访问基类的public和protected,但是不能访问private)，私有继承，继承而来的基类成员在派生类中变为private，变为私有，派生类的对象都不可以访问其本身的私有成员，但私有继承不影响派生类本身的访问权限，它同样不可以使用基类的私有成员。
 	派生类向基类转换的可访问性：
 	1： 假定B继承自A，无论B以什么方式继承A，B的成员函数和友元都能使用派生类到基类的转换
-	2： B继承A的方式是公有或者保护，则B的派生类的成员或友元可以使用B到A的转换，若未私有则不行
+	2： B继承A的方式是公有或者保护，则B的派生类的成员或友元可以使用B到A的转换，若为私有则不行
 	3： B继承A的方式是公有的，用户的代码才能使用B到A的（派生类到基类）的转换，保护或者私有方式则不行
 
 	友元与继承：友元关系不能继承，每个类负责自己控制自己成员的访问权限，也不能传递。

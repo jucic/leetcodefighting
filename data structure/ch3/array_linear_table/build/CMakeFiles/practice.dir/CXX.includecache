@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jucic/study/leetcodefighting/data structure/ch3/linear table in the form of array/include/practice.h
+iostream
+-
+vector
+-
+algorithm
+-
+boost/shared_ptr.hpp
+-
+
+/home/jucic/study/leetcodefighting/data structure/ch3/linear table in the form of array/src/practice.cpp
+../include/practice.h
+/home/jucic/study/leetcodefighting/data structure/ch3/linear table in the form of array/include/practice.h
+

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jucic/study/leetcodefighting/c++ grammar/practice/include/practice.h
+iostream
+-
+vector
+-
+algorithm
+-
+boost/shared_ptr.hpp
+-
+
+/home/jucic/study/leetcodefighting/c++ grammar/practice/src/practice.cpp
+../include/practice.h
+/home/jucic/study/leetcodefighting/c++ grammar/practice/include/practice.h
+

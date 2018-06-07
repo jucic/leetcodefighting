@@ -111,44 +111,44 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named stereo_camera
+# Target rules for targets named practice
 
 # Build rule for target.
-stereo_camera: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 stereo_camera
-.PHONY : stereo_camera
+practice: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 practice
+.PHONY : practice
 
 # fast build rule for target.
-stereo_camera/fast:
-	$(MAKE) -f CMakeFiles/stereo_camera.dir/build.make CMakeFiles/stereo_camera.dir/build
-.PHONY : stereo_camera/fast
+practice/fast:
+	$(MAKE) -f CMakeFiles/practice.dir/build.make CMakeFiles/practice.dir/build
+.PHONY : practice/fast
 
-stereo_camera.o: stereo_camera.cpp.o
+src/practice.o: src/practice.cpp.o
 
-.PHONY : stereo_camera.o
+.PHONY : src/practice.o
 
 # target to build an object file
-stereo_camera.cpp.o:
-	$(MAKE) -f CMakeFiles/stereo_camera.dir/build.make CMakeFiles/stereo_camera.dir/stereo_camera.cpp.o
-.PHONY : stereo_camera.cpp.o
+src/practice.cpp.o:
+	$(MAKE) -f CMakeFiles/practice.dir/build.make CMakeFiles/practice.dir/src/practice.cpp.o
+.PHONY : src/practice.cpp.o
 
-stereo_camera.i: stereo_camera.cpp.i
+src/practice.i: src/practice.cpp.i
 
-.PHONY : stereo_camera.i
+.PHONY : src/practice.i
 
 # target to preprocess a source file
-stereo_camera.cpp.i:
-	$(MAKE) -f CMakeFiles/stereo_camera.dir/build.make CMakeFiles/stereo_camera.dir/stereo_camera.cpp.i
-.PHONY : stereo_camera.cpp.i
+src/practice.cpp.i:
+	$(MAKE) -f CMakeFiles/practice.dir/build.make CMakeFiles/practice.dir/src/practice.cpp.i
+.PHONY : src/practice.cpp.i
 
-stereo_camera.s: stereo_camera.cpp.s
+src/practice.s: src/practice.cpp.s
 
-.PHONY : stereo_camera.s
+.PHONY : src/practice.s
 
 # target to generate assembly for a file
-stereo_camera.cpp.s:
-	$(MAKE) -f CMakeFiles/stereo_camera.dir/build.make CMakeFiles/stereo_camera.dir/stereo_camera.cpp.s
-.PHONY : stereo_camera.cpp.s
+src/practice.cpp.s:
+	$(MAKE) -f CMakeFiles/practice.dir/build.make CMakeFiles/practice.dir/src/practice.cpp.s
+.PHONY : src/practice.cpp.s
 
 # Help Target
 help:
@@ -158,10 +158,10 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... stereo_camera"
-	@echo "... stereo_camera.o"
-	@echo "... stereo_camera.i"
-	@echo "... stereo_camera.s"
+	@echo "... practice"
+	@echo "... src/practice.o"
+	@echo "... src/practice.i"
+	@echo "... src/practice.s"
 .PHONY : help
 
 

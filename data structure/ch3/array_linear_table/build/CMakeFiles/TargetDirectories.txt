@@ -1,0 +1,3 @@
+/home/jucic/study/leetcodefighting/data structure/ch3/linear table in the form of array/build/CMakeFiles/rebuild_cache.dir
+/home/jucic/study/leetcodefighting/data structure/ch3/linear table in the form of array/build/CMakeFiles/edit_cache.dir
+/home/jucic/study/leetcodefighting/data structure/ch3/linear table in the form of array/build/CMakeFiles/practice.dir
