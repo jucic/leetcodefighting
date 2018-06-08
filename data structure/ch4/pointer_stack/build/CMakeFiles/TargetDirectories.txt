@@ -1,3 +1,0 @@
-/home/jucic/study/leetcodefighting/data structure/ch3/pointer_linear_table/build/CMakeFiles/rebuild_cache.dir
-/home/jucic/study/leetcodefighting/data structure/ch3/pointer_linear_table/build/CMakeFiles/edit_cache.dir
-/home/jucic/study/leetcodefighting/data structure/ch3/pointer_linear_table/build/CMakeFiles/practice.dir

@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/jucic/study/leetcodefighting/data structure/ch4/queue/pointer_queue/include/practice.h
+iostream
+-
+vector
+-
+algorithm
+-
+boost/shared_ptr.hpp
+-
+
+/home/jucic/study/leetcodefighting/data structure/ch4/queue/pointer_queue/src/practice.cpp
+../include/practice.h
+/home/jucic/study/leetcodefighting/data structure/ch4/queue/pointer_queue/include/practice.h
+
