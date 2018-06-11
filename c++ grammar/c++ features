@@ -1,6 +1,16 @@
-char *str = "hello";
-strlen(str); //它的值是5，因为hello这个字符串有5个字符
-sizeof(str); //它的值是4，因为char *是一个指针类型，它占4个字节。
-sizeof("hello"); //它的值是5，是因为hello有5个字符，每一个字符占1个字节。
-int a[2] = {0};
-sizeof(a); //它的值是8，因为a中有2个int型变量，每个int型占4个字节，所以8字节
+1.
+	char *str = "hello";
+	strlen(str); //它的值是5，因为hello这个字符串有5个字符
+	sizeof(str); //它的值是4，因为char *是一个指针类型，它占4个字节。
+	sizeof("hello"); //它的值是5，是因为hello有5个字符，每一个字符占1个字节。
+	int a[2] = {0};
+	sizeof(a); //它的值是8，因为a中有2个int型变量，每个int型占4个字节，所以8字节
+
+2.
+	typedef struct BiTNode//名称放在前面，否则结构体内的BiTNode未声明
+	{
+		char data;
+		BiTNode *lchild,*rchild;
+	}BiTNode,*BiTree;
+	//typedef BiTNode* BiTree;或者是另外声明BiTree，记得一定要用typedef，否则BiTree是一个指针型变量，无法用作下面函数形参的类型！
+	void PreOrderCreateBiTree(BiTree &T){...}

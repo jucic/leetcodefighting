@@ -1,29 +1,31 @@
 ch6.tree:
-storage structure of tree:
-1.双亲表示法：
-	1.data|parent
-	2.data|parent|rightsib
-2.孩子表示法：
-	1.data|fristchild->child|next//孩子表示法
-	  0 A|-> 1|-> 2|^
-	  1 B|-> 3|^
-	  2 C|-> 4|-> 5|^
-	2.data|parent|fristchild->child|next//孩子双亲表示法
-	  0 A|-1|-> 1|-> 2|^
-	  1 B| 0|-> 3|^
-	  2 C| 0|-> 4|-> 5|^
-3.孩子兄弟表示法：
-	data|firstchild|rightsib//可将一棵复杂的树变成二叉树
+1.storage structure of tree:
+	1.双亲表示法：
+		1.data|parent
+		2.data|parent|rightsib
+	2.孩子表示法：
+		1.data|fristchild->child|next//孩子表示法
+		  0 A|-> 1|-> 2|^
+		  1 B|-> 3|^
+		  2 C|-> 4|-> 5|^
+		2.data|parent|fristchild->child|next//孩子双亲表示法
+		  0 A|-1|-> 1|-> 2|^
+		  1 B| 0|-> 3|^
+		  2 C| 0|-> 4|-> 5|^
+	3.孩子兄弟表示法：
+		data|firstchild|rightsib//可将一棵复杂的树变成二叉树
 
-special binary tree：
+2.special binary tree：
 	1.斜树
 	2.满二叉树
 	3.完全二叉树
 
-traverse of a tree:
-1.preorder
-2.inorder
-3.postorder
+3.traverse of a tree:
+	1.preorder
+	2.inorder
+	3.postorder
 
-given the preoder and inorder|the postorder and inorder,the tree can be solved;
-given the preoder and postorder,the tree cannot be solved;
+	given the preoder and inorder|the postorder and inorder,the tree can be solved;
+	given the preoder and postorder,the tree cannot be solved;
+
+4.对二叉树以某种次序遍历使其变为线索二叉树的过程叫做线索化。
